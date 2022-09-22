@@ -2,17 +2,21 @@ package br.gamesapp.service;
 
 import br.gamesapp.model.Game;
 import br.gamesapp.repository.GameRepository;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
 public class GameService {
 
+    @Autowired
     private GameRepository gameRepository;
 
-    public void save(Game game) {
-        gameRepository.save(game);
+    @PostMapping("/games")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Game save(@RequestBody Game game) {
+        return gameRepository.save(game);
     }
 
 }
